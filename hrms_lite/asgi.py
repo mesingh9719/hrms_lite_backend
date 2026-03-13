@@ -1,6 +1,14 @@
+"""ASGI config for HRMS Lite project."""
 import os
-from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hrms_lite.settings')
+from django.core.asgi import get_asgi_application
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Get environment (default to production for ASGI)
+env = os.getenv('DJANGO_ENV', 'production')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'hrms_lite.settings.{env}')
 
 application = get_asgi_application()
