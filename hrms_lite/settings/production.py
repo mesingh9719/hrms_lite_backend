@@ -10,7 +10,10 @@ from .base import *
 SECRET_KEY = os.environ['SECRET_KEY']  # Must be set in production
 DEBUG = False
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+# Default allowed hosts + any additional from env
+_default_hosts = ['ethara-hrms-lite-api.vercel.app', '.vercel.app']
+_env_hosts = [h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h.strip()]
+ALLOWED_HOSTS = list(set(_default_hosts + _env_hosts))
 
 # Database Configuration
 DATABASE_URL = os.environ['DATABASE_URL']  # Must be set in production
@@ -47,7 +50,10 @@ CSRF_COOKIE_SECURE = True
 
 # CORS Configuration (restrictive for production)
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if origin.strip()]
+# Default frontend origin + any additional from env
+_default_origins = ['https://ethara-hrms-lite.vercel.app']
+_env_origins = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if origin.strip()]
+CORS_ALLOWED_ORIGINS = list(set(_default_origins + _env_origins))
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',

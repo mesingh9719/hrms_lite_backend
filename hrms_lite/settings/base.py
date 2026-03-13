@@ -121,14 +121,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'logs' / 'hrms.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 5,
-            'formatter': 'verbose',
-        },
     },
     'loggers': {
         'django': {
@@ -137,28 +129,24 @@ LOGGING = {
             'propagate': False,
         },
         'django.request': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
         'hrms_lite': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': LOG_LEVEL,
             'propagate': False,
         },
         'hr': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': LOG_LEVEL,
             'propagate': False,
         },
         'attendance': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': LOG_LEVEL,
             'propagate': False,
         },
     },
 }
-
-# Create logs directory if it doesn't exist
-LOGS_DIR = BASE_DIR / 'logs'
-LOGS_DIR.mkdir(exist_ok=True)
